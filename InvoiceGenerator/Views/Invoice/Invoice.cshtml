@@ -1,0 +1,250 @@
+﻿@model InvoiceGenerator.ViewModels.InvoiceVewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@if (ViewData["Action"] != null)
+{
+    @switch (ViewData["Action"].ToString())
+    {
+        case "Edit":
+            <form asp-action="ProcessInvoice" asp-controller="Invoice" method="post">
+                <input asp-for="@Model.Id" hidden />
+                <input asp-for="@Model.Date" hidden />
+                <input asp-for="@Model.ApplicationUserId" hidden />
+                <input asp-for="@Model.RowVersion" hidden />
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-2 text-left">
+                                <h6>Raise Invoice</h6>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <div class="form-group form-inline">
+                                    <label asp-for="@Model.Code"></label>
+                                    <input asp-for="@Model.Code" class="form-control" />
+                                    <span asp-validation-for="@Model.Code" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                 <h6>Status : @Model.Status.ToString() </h6>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <h6>@Model.Date</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="@Model.AttentionOf"></label>
+                                    <input asp-for="@Model.AttentionOf" class="form-control" />
+                                    <span asp-validation-for="@Model.AttentionOf" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="@Model.ToEmail"></label>
+                                    <input asp-for="@Model.ToEmail" class="form-control" />
+                                    <span asp-validation-for="@Model.ToEmail" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.To"></label>
+                                    <textarea asp-for="@Model.To" class="form-control"></textarea>
+                                    <span asp-validation-for="@Model.To" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="@Model.Note"></label>
+                                    <textarea asp-for="@Model.Note" class="form-control"></textarea>
+                                    <span asp-validation-for="@Model.Note" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        @for (int ct = 0; ct < Model.Items.Count(); ct++)
+                        {
+                            <div class="row mb-0">
+                                <input asp-for="@Model.Items[ct].Id" hidden />
+                                <input asp-for="@Model.Items[ct].RowVersion" hidden />
+                                <input asp-for="@Model.Items[ct].InvoiceId" hidden />
+
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-6 col-6">
+                                            <label asp-for="@Model.Items[ct].Item"></label>
+                                        </div>
+                                        <div class="col-md-6 col-6 text-right">
+                                            <input class="btn btn-primary btn-sm" type="submit" value="Remove Item" name="RemoveItem" formaction="~/Invoice/RemoveItem?ItemId=@Model.Items[ct].Id" />
+                                        </div>
+                                    </div>
+                                    <textarea asp-for="@Model.Items[ct].Item" class="form-control">@Model.Items[ct].Item </textarea>
+                                </div>
+
+                                <div class="col-md-2 text-right">
+                                    <label asp-for="@Model.Items[ct].Price"></label>
+                                    <Input asp-for="@Model.Items[ct].Price" value="@Model.Items[ct].Price" class="form-control text-right" />
+                                </div>
+
+                                <div class="col-md-2 text-right">
+                                    <label asp-for="@Model.Items[ct].Tax"></label>
+                                    <Input asp-for="@Model.Items[ct].Tax" value="@Model.Items[ct].Tax" class="form-control text-right" onchange="submit()" />
+                                </div>
+
+                                <div class="col-md-2 text-right">
+                                    <label asp-for="@Model.Items[ct].Total"></label>
+                                    <Input asp-for="@Model.Items[ct].Total" value="@Model.Items[ct].Total" class="form-control text-right" readonly />
+                                </div>
+                            </div>
+                        }
+
+
+                        <div class="row">
+                            <div class="col-md-6 text-right">
+                                <label>Totals</label>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <label asp-for="@Model.Price"></label>
+                                <Input asp-for="@Model.Price" class="form-control text-right" value="@Model.Price" readonly />
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <label asp-for="@Model.Tax"></label>
+                                <Input asp-for="@Model.Tax" class="form-control text-right" value="@Model.Tax" readonly />
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <label asp-for="@Model.Total"></label>
+                                <Input asp-for="@Model.Total" class="form-control text-right" value="@Model.Total" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <input class="btn btn-primary btn-block" type="submit" value="AddItem" name="AddItem" formaction="~/Invoice/AddItem" />
+
+                            </div>
+
+                            <div class="col-md-6 col-sm-6  text-right">
+                                <input class="btn btn-primary btn-block" type="submit" value="Save" name="SaveInvoice" formaction="~/Invoice/SaveInvoice" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            break;
+        case "View":
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-4 text-left">
+                            <h6>View Invoice</h6>
+                        </div>
+                    
+                         <div class="col-md-4">
+                             <div class="form-group form-inline m-0 p-0 mb-0">
+                                        <label asp-for="@Model.Code"></label>
+                                        <input asp-for="@Model.Code" class="form-control" readonly/>
+                             </div>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <h6>@Model.Date</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="@Model.AttentionOf"></label>
+                                <input asp-for="@Model.AttentionOf" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="@Model.ToEmail"></label>
+                                <input asp-for="@Model.ToEmail" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="@Model.To"></label>
+                                <textarea asp-for="@Model.To" class="form-control" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="@Model.Note"></label>
+                                <textarea asp-for="@Model.Note" class="form-control" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    @for (int ct = 0; ct < Model.Items.Count(); ct++)
+                    {
+                        <div class="row mb-0">
+
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 col-6">
+                                        <label asp-for="@Model.Items[ct].Item"></label>
+                                    </div>
+                                </div>
+                                <textarea asp-for="@Model.Items[ct].Item" class="form-control" readonly>@Model.Items[ct].Item </textarea>
+                            </div>
+
+                            <div class="col-md-2 text-right">
+                                <label asp-for="@Model.Items[ct].Price"></label>
+                                <Input asp-for="@Model.Items[ct].Price" value="@Model.Items[ct].Price" class="form-control text-right" readonly />
+                            </div>
+
+                            <div class="col-md-2 text-right">
+                                <label asp-for="@Model.Items[ct].Tax"></label>
+                                <Input asp-for="@Model.Items[ct].Tax" value="@Model.Items[ct].Tax" class="form-control text-right" readonly />
+                            </div>
+
+                            <div class="col-md-2 text-right">
+                                <label asp-for="@Model.Items[ct].Total"></label>
+                                <Input asp-for="@Model.Items[ct].Total" value="@Model.Items[ct].Total" class="form-control text-right" readonly />
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-md-6 text-right">
+                            <label>Totals</label>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <label asp-for="@Model.Price"></label>
+                            <Input asp-for="@Model.Price" class="form-control text-right" value="@Model.Price" readonly />
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <label asp-for="@Model.Tax"></label>
+                            <Input asp-for="@Model.Tax" class="form-control text-right" value="@Model.Tax" readonly />
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <label asp-for="@Model.Total"></label>
+                            <Input asp-for="@Model.Total" class="form-control text-right" value="@Model.Total" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+
+                </div>
+            </div>
+            break;
+        default:
+            break;
+    }
+}

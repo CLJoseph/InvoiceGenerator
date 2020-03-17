@@ -1,0 +1,53 @@
+﻿@model InvoiceGenerator.ViewModels.EditUserViewModel
+
+
+
+<form asp-action="EditUser" asp-controller="Administration" method="post">
+    <div class="card">
+        <div class="card-header">
+            <h6>Edit Account details </h6>
+        </div>
+        <div class="card-body">
+            <div asp-validation-summary="All" class="text-danger"></div>        
+            <input asp-for="@Model.Id" hidden />
+
+            <div class="form-group">
+                <label asp-for="@Model.Person"></label>
+                <input asp-for="@Model.Person" class="form-control" />
+                <span asp-validation-for="@Model.Person" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.OrganisationName"></label>
+                <input asp-for="@Model.OrganisationName" class="form-control" />
+                <span asp-validation-for="@Model.OrganisationName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.OrganisationEmail"></label>
+                <input asp-for="@Model.OrganisationEmail" class="form-control" />
+                <span asp-validation-for="@Model.OrganisationEmail" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="@Model.AddressL1"></label>
+                <input asp-for="@Model.AddressL1" class="form-control" />
+                <span asp-validation-for="@Model.AddressL1" class="text-danger"></span>
+                <input asp-for="@Model.AddressL2" class="form-control" />
+                <input asp-for="@Model.AddressL3" class="form-control" />
+                <input asp-for="@Model.AddressL4" class="form-control" />
+                <input asp-for="@Model.AddressL5" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.AddressCode"></label>
+                <input asp-for="@Model.AddressCode" class="form-control" />
+                <span asp-validation-for="@Model.AddressCode" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Update</button> 
+        </div>
+    </div>
+</form>

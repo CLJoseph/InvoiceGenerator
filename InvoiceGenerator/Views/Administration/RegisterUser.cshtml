@@ -1,0 +1,96 @@
+﻿@model InvoiceGenerator.ViewModels.RegisterUserViewModel
+
+
+
+<form asp-action="RegisterUser" asp-controller="Administration" method="post">
+    <div class="card">
+        <div class="card-header">
+            <h6>Register User </h6>
+        </div>
+        <div class="card-body">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Name"></label>
+                <input asp-for="@Model.Name" class="form-control" />
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Email"></label>
+                <input asp-for="@Model.Email" class="form-control" />
+                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Password"></label>
+                <input asp-for="@Model.Password" class="form-control" />
+                <span asp-validation-for="@Model.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.ConfirmPassword"></label>
+                <input asp-for="@Model.ConfirmPassword" class="form-control" />
+                <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.OrganisationName"></label>
+                <input asp-for="@Model.OrganisationName" class="form-control" />
+                <span asp-validation-for="@Model.OrganisationName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.OrganisationEmail"></label>
+                <input asp-for="@Model.OrganisationEmail" class="form-control" />
+                <span asp-validation-for="@Model.OrganisationEmail" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="@Model.AddressL1"></label>
+                <input asp-for="@Model.AddressL1" class="form-control" />
+                <span asp-validation-for="@Model.AddressL1" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                
+                <input asp-for="@Model.AddressL2" class="form-control" />
+                <span asp-validation-for="@Model.AddressL2" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+               
+                <input asp-for="@Model.AddressL3" class="form-control" />
+                <span asp-validation-for="@Model.AddressL3" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+              
+                <input asp-for="@Model.AddressL4" class="form-control" />
+                <span asp-validation-for="@Model.AddressL4" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                
+                <input asp-for="@Model.AddressL5" class="form-control" />
+                <span asp-validation-for="@Model.AddressL5" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.AddressCode"></label>
+                <input asp-for="@Model.AddressCode" class="form-control" />
+                <span asp-validation-for="@Model.AddressCode" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="card-footer">
+            @if (@Model.Message == "Sucessful")
+            {
+
+            <h6> Registration sucessfull - please respond to email to activate account.</h6>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-primary">Register</button> 
+            }
+        </div>
+    </div>
+</form>

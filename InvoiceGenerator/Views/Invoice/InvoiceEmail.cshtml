@@ -1,0 +1,204 @@
+﻿@model InvoiceGenerator.ViewModels.InvoiceVewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <table style="background-color:lightsteelblue; width:100%; border-radius:5px; padding:5px;font: 12px verdana;">
+        <thead>
+            <tr>
+                <th style="width:8%"></th>
+                <th style="width:8%"></th>
+                <th style="width:8%"></th>
+                <th style="width:8%"></th>
+                <th style="width:8%"></th>
+                <th style="width:8%"></th>
+                <th style="width:8%"></th>
+                <th style="width:8%"></th>
+                <th style="width:8%"></th>
+                <th style="width:8%"></th>
+                <th style="width:8%"></th>
+                <th style="width:8%"></th>
+            </tr>
+            <tr style="height:35px">
+                <td colspan="4" style="background-color: cadetblue;
+                                       border-radius: 5px;
+                                       color: black;
+                                       padding: 5px;">
+                    Invoice
+                </td>
+                <td colspan="4" style="background-color:cadetblue; border-radius:5px; color:black; text-align:center">
+                    @Model.Code
+                </td>
+                <td colspan="4" style="background-color:cadetblue; border-radius:5px; color:black; text-align:right">@Model.Date</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="height:15px">
+                <td colspan="2" style="background-color:lightsteelblue;border-radius: 5px;color: black;padding:5px">From</td>
+                <td colspan="2" style="background-color:lightsteelblue; border-radius: 5px;color: black ;padding:5px">Organisation Email</td>
+                <td colspan="8" style="background-color:lightsteelblue;
+                                       border-radius:5px;
+                                       color:black;
+                                       padding:5px">Organisation</td>
+            </tr>
+            <tr style="height:35px">
+                <td colspan="2" style="background-color: cadetblue;
+                                       border-radius: 5px;
+                                       color: black;
+                                       padding: 5px;
+                                       text-align:left;
+                                       vertical-align:top">@Model.Person</td>
+                <td colspan="2" style="background-color: cadetblue;
+                                       border-radius: 5px;
+                                       color: black;
+                                       padding:5px;
+                                       text-align:left;
+                                       vertical-align:top">
+                    @Model.OrganisationEmail
+                </td>
+                <td colspan="8" style="background-color:cadetblue;
+                                       border-radius:5px;
+                                       color:black;
+                                       padding:5px;">
+                    @Model.AddressL1 <br /> @Model.AddressL2 <br /> @Model.AddressL3 <br /> @Model.AddressL4  <br /> @Model.AddressL5  <br />  @Model.AddressCode  
+                </td>
+            </tr>
+            <tr style="height:15px">
+               
+                <td colspan="2" style="background-color:lightsteelblue; border-radius: 5px;color: black ;padding:5px">Attention of</td>
+                <td colspan="10" style="background-color:lightsteelblue;
+                                       border-radius:5px;
+                                       color:black;
+                                       padding:5px">
+                    To
+                </td>
+            </tr>
+            <tr style="height:35px">
+               
+                <td colspan="2" style="background-color: cadetblue;
+                                       border-radius: 5px;
+                                       color: black;
+                                       padding:5px;">
+                    @Model.AttentionOf
+                </td>
+                <td colspan="10" style="background-color:cadetblue;
+                                       border-radius:5px;
+                                       color:black;
+                                       padding:5px;">
+                    @Model.To
+                </td>
+            </tr>
+            <tr style="height:15px">
+                <td colspan="12" style=" background-color: lightsteelblue;
+                                         border-radius: 5px;
+                                         color: black">
+                    Note
+                </td>
+            </tr>
+            <tr style=" height: 60px">
+                <td colspan="12" style=" background-color: cadetblue;
+                                         border-radius: 5px;
+                                         color: black;
+                                         padding:5px;
+                                         text-align:left;
+                                         vertical-align:top">
+                    @Model.Note
+                </td>
+            </tr>
+            <tr style="height: 15px">
+                <td colspan="6" style="background-color:lightsteelblue;border-radius: 5px;color:black;padding: 5px">Item</td>
+                <td colspan="2" style="background-color:lightsteelblue; border-radius: 5px;color:black ;padding:5px">Price</td>
+                <td colspan="2" style="background-color:lightsteelblue; border-radius:5px;color:black" ;padding:5px>Tax</td>
+                <td colspan="2" style="background-color:lightsteelblue; border-radius:5px;color:black" ;padding:5px>Total</td>
+            </tr>
+            @foreach (var I in Model.Items)
+            {
+                <tr style="height: 15px">
+                    <td colspan="6" style="background-color:cadetblue;
+                                           border-radius: 5px;
+                                           color:black;
+                                           padding:5px">
+                        @I.Item
+                    </td>
+                    <td colspan="2" style="background-color:cadetblue;
+                                           border-radius:5px;
+                                           color:black;
+                                           padding:5px;
+                                           text-align:right">
+                        @I.Price
+                    </td>
+                    <td colspan="2" style="
+                                            background-color: cadetblue;
+                                            border-radius: 5px;
+                                            color: black;
+                                            padding: 5px;
+                                            text-align:right">
+                        @I.Tax
+                    </td>
+                    <td colspan="2" style="background-color:cadetblue;
+                                           border-radius:5px;
+                                           color:black;
+                                           padding:5px;
+                                           text-align:right">
+                        @I.Total
+                    </td>
+                </tr>
+            }
+            <tr style="height:15px">
+                <td colspan="6" style="background-color:lightsteelblue;
+                                       border-radius: 5px;
+                                       color: black;
+                                       padding:5px"></td>
+                <td colspan="2" style="background-color:lightsteelblue;
+                                       border-radius: 5px;
+                                       color: black;
+                                       padding:5px">
+                    Price
+                </td>
+                <td colspan="2" style="background-color:lightsteelblue;
+                                       border-radius:5px;
+                                       color:black" ;
+                    padding:5px>
+                    Tax
+                </td>
+                <td colspan="2" style=" background-color: lightsteelblue;
+                                        border-radius: 5px;
+                                        color: black;
+                                        padding:5px">
+                    Total
+                </td>
+            </tr>
+            <tr style="height:15px">
+                <td colspan="6" style="background-color:lightsteelblue;border-radius: 5px;color: black;padding:5px"></td>
+                <td colspan="2" style="background-color:cadetblue; border-radius: 5px;color: black ;padding:5px;text-align:right">@Model.Price</td>
+                <td colspan="2" style="background-color:cadetblue;
+                                       border-radius:5px;
+                                       color:black;
+                                       padding:5px;
+                                       text-align:right">
+                    @Model.Tax
+                </td>
+                <td colspan="2" style="background-color:cadetblue;
+                                       border-radius:5px;
+                                       color:black;
+                                       padding:5px;
+                                       text-align:right">
+                    @Model.Total
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="12">
+                    <a href ="@Model.InvoiceUrl" >View Invoice in browser</a>
+
+                </td>
+
+
+            </tr>
+        </tfoot>
+    </table>
+</body>
+</html>

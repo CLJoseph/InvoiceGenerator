@@ -1,0 +1,57 @@
+﻿@model InvoiceGenerator.ViewModels.InvoiceIndexVewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 text-left">
+                    <h6>Invoices</h6>
+                    <span style="color:red">@Model.Message</span>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a class="btn btn-primary" asp-action="RaiseInvoice" asp-controller="Invoice">Raise Invoice</a>
+                </div>
+                
+
+            </div>
+        </div>
+
+        <div class="card-body">
+            @foreach (var Invoice in Model.Items)
+            {
+            <div class="row">
+                <div class="col-md-2">
+                    <input asp-for="@Invoice.Code" class="form-control" readonly />
+                </div>
+
+                <div class="col-md-2">
+                    <h6> @Invoice.Status.ToString() </h6>
+                </div>
+
+                <div class="col-md-2">
+                    <input asp-for="@Invoice.Date" class="form-control" type="text" readonly />
+                </div>
+                <div class=" col-md-2">
+                    <input asp-for="@Invoice.Total" class="form-control" readonly />
+                </div>
+
+                <div class="col-md-4">
+                    <a asp-controller="Invoice" asp-action="ViewInvoice" asp-route-Id="@Invoice.Id" class="btn btn-primary btn-sm">View</a>
+                    <a asp-controller="Invoice" asp-action="EditInvoice" asp-route-Id="@Invoice.Id" class="btn btn-primary btn-sm">Edit</a>
+                    <a asp-controller="Invoice" asp-action="DeleteInvoice" asp-route-Id="@Invoice.Id" class="btn btn-primary btn-sm">Delete</a>
+                    <a asp-controller="Invoice" asp-action="EmailInvoice" asp-route-Id="@Invoice.Id" class="btn btn-primary btn-sm">Email</a>
+                </div>
+            </div>
+            }
+
+         </div>
+
+         <div class="card-footer"></div>
+    </div>
+
+

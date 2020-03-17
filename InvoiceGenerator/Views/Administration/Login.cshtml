@@ -1,0 +1,35 @@
+﻿@model InvoiceGenerator.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    var returnUrl = @Context.Request.Query["returnurl"];
+}
+
+<form asp-action="Login" asp-controller="Administration" method="post" asp-route-returnUrl="@returnUrl">
+    <div class="card">
+        <div class="card-header">
+            <h6>Login</h6>          
+        </div>
+        <div class="card-body">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.login"></label>
+                <input asp-for="@Model.login" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.password"></label>
+                <input asp-for="@Model.password" class="form-control" />
+                <span asp-validation-for="@Model.password" class="text-danger"></span>
+            </div>
+            <div class="form-check m-1">
+                <input asp-for="RememberMe" class="form-check-input" />
+                <input asp-for="RememberMe" hidden />
+                <label class="form-check-label">Remember Me</label>
+            </div>          
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </div>
+</form>
+
